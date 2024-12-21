@@ -1,4 +1,6 @@
-package contoller;
+package au.com.telstra.simcardactivator.contoller;
+import au.com.telstra.simcardactivator.dto.SimActivationRequest;
+import au.com.telstra.simcardactivator.service.SimActivationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,7 +17,7 @@ public class Controller {
 
         if (isActivated){
             System.out.println("Successful activation");
-            return ResponseEntity.ok("Activation was successful")
+            return ResponseEntity.ok("Activation was successful");
         } else {
             System.out.println("Activation failed");
             return ResponseEntity.status(500).body("Activation failed");
