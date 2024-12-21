@@ -10,7 +10,7 @@ import java.util.Map;
 
 @Service
 public class SimActivationService {
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate = new RestTemplate();
     private static final String ACTUATOR_URL = "http://localhost:8444/actuate";
 
     public boolean activateSim(SimActivationRequest request) {
