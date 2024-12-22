@@ -32,4 +32,8 @@ public class SimActivationService {
         repo.save(record);
         return isActive;
     }
+
+        public SimActivationRecord getSimActivationRecordById(long simCardId) {
+            return repo.findById(simCardId).orElse(null);
+        }
 }
