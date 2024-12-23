@@ -15,6 +15,9 @@
     <description>Microservice responsible for activating Telstra sim cards</description>
     <properties>
         <java.version>11</java.version>
+        <sonar.projectKey>my-spring-boot-app</sonar.projectKey>
+        <sonar.projectName>My Spring Boot App</sonar.projectName>
+        <sonar.host.url>http://localhost:9000</sonar.host.url>
     </properties>
     <dependencies>
         <dependency>
@@ -68,6 +71,11 @@
 
     <build>
         <plugins>
+            <plugin>
+                <groupId>org.sonarsource.scanner.maven</groupId>
+                <artifactId>sonar-maven-plugin</artifactId>
+                <version>4.0.0.4121</version>
+            </plugin>
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>

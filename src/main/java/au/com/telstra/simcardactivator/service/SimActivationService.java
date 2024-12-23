@@ -15,8 +15,12 @@ import java.util.Map;
 public class SimActivationService {
     private final RestTemplate restTemplate = new RestTemplate();
     private static final String ACTUATOR_URL = "http://localhost:8444/actuate";
+
+    private final SimActivationRecordRepository repo;
     @Autowired
-    private SimActivationRecordRepository repo;
+    public SimActivationService(SimActivationRecordRepository repo){
+        this.repo = repo;
+    }
 
     public boolean activateSim(SimActivationRequest request) {
         var actuatorPayload = Map.of("iccid", request.getIccid());
@@ -25,11 +29,11 @@ public class SimActivationService {
                 ACTUATOR_URL, actuatorPayload, ActuatorResponse.class);
 
         boolean isActive = actuatorResponse != null && actuatorResponse.isSuccess();
-        SimActivationRecord record = new SimActivationRecord();
-        record.setIccid(request.getIccid());
-        record.setCustomerEmail(request.getCustomerEmail());
-        record.setActive(isActive);
-        repo.save(record);
+        SimActivationRecord simCardActivationRecord = new SimActivationRecord();
+        simCardActivationRecord.setIccid(request.getIccid());
+        simCardActivationRecord.setCustomerEmail(request.getCustomerEmail());
+        simCardActivationRecord.setActive(isActive);
+        repo.save(simCardActivationRecord);
         return isActive;
     }
 

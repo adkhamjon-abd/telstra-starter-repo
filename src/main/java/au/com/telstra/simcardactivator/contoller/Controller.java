@@ -6,21 +6,28 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.logging.Logger;
+
 @RestController
 @RequestMapping("/sim")
 public class Controller {
+    Logger logger = Logger.getLogger(getClass().getName());
+
+    private final SimActivationService simActivationService;
 
     @Autowired
-    private SimActivationService simActivationService;
+    public Controller(SimActivationService simActivationService){
+        this.simActivationService = simActivationService;
+    }
     @PostMapping("/activate")
     public ResponseEntity<String> activateSim(@RequestBody SimActivationRequest request){
         boolean isActivated =simActivationService.activateSim(request);
 
         if (isActivated){
-            System.out.println("Successful activation");
+            logger.info("Successful activation");
             return ResponseEntity.ok("Activation was successful");
         } else {
-            System.out.println("Activation failed");
+            logger.info("Activation failed");
             return ResponseEntity.status(500).body("Activation failed");
         }
     }
@@ -31,7 +38,7 @@ public class Controller {
         if (simActivationRecord == null){
             return ResponseEntity.notFound().build();
         }
-        System.out.println("The record is found");
+        logger.info("The record is found");
         return ResponseEntity.ok(simActivationRecord);
     }
 }

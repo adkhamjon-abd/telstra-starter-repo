@@ -49,11 +49,11 @@ public class SimCardActivatorStepDefinitions {
     @Then("the database should have a record with ICCID {string}, customer email {string}, and active status {string}")
     public void thenDatabaseShouldHaveRecord(String expectedIccid, String expectedEmail, String expectedStatus) {
         long id = expectedIccid.equals("1255789453849037777") ? 1 : 2;
-        var record = restTemplate.getForObject("http://localhost:8080/sim/activation/" + id, SimActivationRecord.class);
+        var simCardActivationRecord = restTemplate.getForObject("http://localhost:8080/sim/activation/" + id, SimActivationRecord.class);
 
-        assertNotNull(record, "Record should exist in the database");
-        assertEquals(expectedIccid, record.getIccid());
-        assertEquals(expectedEmail, record.getCustomerEmail());
-        assertEquals(Boolean.parseBoolean(expectedStatus), record.isActive());
+        assertNotNull(simCardActivationRecord, "Record should exist in the database");
+        assertEquals(expectedIccid, simCardActivationRecord.getIccid());
+        assertEquals(expectedEmail, simCardActivationRecord.getCustomerEmail());
+        assertEquals(Boolean.parseBoolean(expectedStatus), simCardActivationRecord.isActive());
     }
 }
